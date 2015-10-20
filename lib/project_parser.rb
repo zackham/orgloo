@@ -1,6 +1,18 @@
 require 'date'
-
 require_relative 'project' 
+
+# project doc structure
+# - milestones_section = "Milestones" \n milestones
+# - milestones = "{begin}" sparse_milestones | strict_milestones
+# - strict_milestones = milestone | milestone \n strict_milestones
+# - sparse_milestones = "{end}" | milestone sparse_milestones | ignored_line sparse_milestones
+# - ignored_line = (line that could not be parsed as a milestone)
+# - milestone = due_on : description : owner | due_on : description : owner : status
+# - due_on = date | date > due_on
+# - date = MM/DD | YYYY-MM-DD | TBD
+# - description = String
+# - owner = String
+# - status = "done" | "canceled" | "atrisk" | "ontrack"
 
 class ProjectParser
   def self.parse_project(title, project_str, debug=false)
