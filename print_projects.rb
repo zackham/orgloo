@@ -2,9 +2,17 @@ require_relative 'lib/google_doc_manager'
 
 g = GoogleDocManager.connect
 
+print "[r]WGPS or [p]ersonal? "
+path = {'r' => 'RWGPS/2015 Projects',
+        'p' => 'Projects'}[$stdin.gets.chomp]
+if path.nil?
+  puts "Need to specify r/p"
+  exit
+end
+
 title_filter = ARGV.any? ? ARGV.join(' ') : nil
 
-g.fetch_docs('RWGPS/2015 Projects').each do |d|
+g.fetch_docs(path).each do |d|
   next if title_filter && d.title != title_filter 
   p = ProjectParser.parse_project(d.title, d.export_as_string("text/plain"), !!title_filter)
   puts "(#{p.status}) #{p.title}"
