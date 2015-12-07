@@ -2,8 +2,9 @@ require_relative 'lib/google_doc_manager'
 
 g = GoogleDocManager.connect
 
-print "[r]WGPS or [p]ersonal? "
+print "r r2 p"
 path = {'r' => 'RWGPS/2015 Projects',
+        'r2' => 'Ride with GPS/Projects',
         'p' => 'Projects'}[$stdin.gets.chomp]
 if path.nil?
   puts "Need to specify r/p"
